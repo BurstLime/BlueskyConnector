@@ -1,5 +1,8 @@
 package dev.burstlime.blueskyconnector;
 
+import net.minecraft.server.v1_12_R1.Advancement;
+import org.bukkit.Bukkit;
+import org.bukkit.craftbukkit.v1_12_R1.advancement.CraftAdvancement;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.*;
@@ -77,12 +80,15 @@ public class EventListener implements Listener {
     @EventHandler
     void onPlayerAdvancement(PlayerAdvancementDoneEvent event)
     {
+        CraftAdvancement craftAdvancement = (CraftAdvancement) event.getAdvancement();
+        String advancementName = craftAdvancement.getHandle().getName().toString();
+
         if (plugin.getConfig().getBoolean("event.player-advancement.enabled"))
         {
             SendFeedPost(plugin.getConfig().getString("event.player-advancement.message")
                     .replace("{name}", event.getPlayer().getName())
                     .replace("{display-name}", event.getPlayer().getDisplayName())
-                    .replace("{advancement}", event.getAdvancement().toString())
+                    .replace("{advancement}", advancementName)
             );
         }
     }
