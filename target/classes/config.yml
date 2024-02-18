@@ -1,0 +1,30 @@
+user: "example.bsky.social"
+password: ""
+
+event:
+  server-start:
+    enabled: true
+    message: "サーバーが起動しました"
+  server-stop:
+    enabled: true
+    message: "サーバーが停止しました"
+  player-chat:
+    enabled: true
+    message: "{name}: {chat}"
+  player-join:
+    enabled: true
+    message: "{name}が参加しました"
+  player-quit:
+    enabled: true
+    message: "{name}が退出しました"
+  player-kick:
+    enabled: true
+    message: "{name}がキックされました\n理由: {reason}"
+
+message:
+  prefix: "&b[BskyConnector] &r"
+  connection-success: "Blueskyとの接続に成功しました"
+  connection-failed: "Blueskyとの接続に失敗しました\n（ユーザー・パスワードが間違っている可能性があります）"
+  post-success: "投稿に成功しました"
+  post-failed: "投稿に失敗しました"
+  command-notfound: "コマンドが見つかりませんでした (/bsky help でヘルプ)"

@@ -1,0 +1,14 @@
+name: BlueskyConnector
+version: '${project.version}'
+main: dev.burstlime.blueskyconnector.BlueskyConnector
+prefix: "BskyConnector"
+author: BurstLime
+description: "Connect from Minecraft to Bluesky"
+commands:
+  bluesky:
+    aliases: [ bsky, blueskyconnector ]
+    description: Main Command
+permissions:
+  blueskyconnector.*:
+    description: BlueskyConnector All Permissions
+    default: op
