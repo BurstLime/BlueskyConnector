@@ -20,6 +20,9 @@ event:
   player-kick:
     enabled: true
     message: "{name}がキックされました\n理由: {reason}"
+  player-advancement:
+    enabled: false
+    message: "{name}が{advancement}の進捗を達成しました"
 
 message:
   prefix: "&b[BskyConnector] &r"

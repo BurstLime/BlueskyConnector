@@ -2,10 +2,7 @@ package dev.burstlime.blueskyconnector;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerKickEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.plugin.Plugin;
 
 import java.util.UUID;
@@ -74,6 +71,19 @@ public class EventListener implements Listener {
             );
 
             kickUUID = event.getPlayer().getUniqueId();
+        }
+    }
+
+    @EventHandler
+    void onPlayerAdvancement(PlayerAdvancementDoneEvent event)
+    {
+        if (plugin.getConfig().getBoolean("event.player-advancement.enabled"))
+        {
+            SendFeedPost(plugin.getConfig().getString("event.player-advancement.message")
+                    .replace("{name}", event.getPlayer().getName())
+                    .replace("{display-name}", event.getPlayer().getDisplayName())
+                    .replace("{advancement}", event.getAdvancement().toString())
+            );
         }
     }
 }
