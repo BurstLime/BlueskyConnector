@@ -25,8 +25,6 @@ public class BCCommandExecutor implements CommandExecutor {
 
                 // コンフィグを再読み込み
                 plugin.reloadConfig();
-                plugin.saveDefaultConfig();
-
 
                 // Blueskyに接続を試みる
                 if (BskyConnection()) {
