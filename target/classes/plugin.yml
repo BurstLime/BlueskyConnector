@@ -1,5 +1,5 @@
 name: BlueskyConnector
-version: '1.0-SNAPSHOT'
+version: '0.1.0'
 main: dev.burstlime.blueskyconnector.BlueskyConnector
 prefix: "BskyConnector"
 author: BurstLime

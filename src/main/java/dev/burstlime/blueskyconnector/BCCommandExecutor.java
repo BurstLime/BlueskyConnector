@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
 
 import static dev.burstlime.blueskyconnector.BlueskyConnector.BskyConnection;
+import static dev.burstlime.blueskyconnector.FeedRequest.SendFeedPost;
 
 public class BCCommandExecutor implements CommandExecutor {
     private static final Plugin plugin = BlueskyConnector.getPlugin();
@@ -25,6 +26,25 @@ public class BCCommandExecutor implements CommandExecutor {
 
                 // ヘルプメッセージを送信
                 sender.sendMessage(getHelpMessage());
+
+                return true;
+            }
+            else if (args[0].equalsIgnoreCase("post"))
+            {
+                if (args.length == 2)
+                {
+                    if (SendFeedPost(args[1])) {
+                        // 成功
+                        sender.sendMessage(prefix + plugin.getConfig().getString("message.post-success"));
+                    } else {
+                        // 失敗
+                        sender.sendMessage(prefix + plugin.getConfig().getString("message.post-failed"));
+                    }
+                }
+                else
+                {
+                    sender.sendMessage(prefix + "Usage: /bsky post <message>");
+                }
 
                 return true;
             }
@@ -59,8 +79,9 @@ public class BCCommandExecutor implements CommandExecutor {
     private String getHelpMessage()
     {
         return ChatColor.translateAlternateColorCodes('&',
-            "/bsky help   - " + plugin.getConfig().getString("command-description.help") + "\n" +
-            "/bsky reload - " + plugin.getConfig().getString("command-description.reload") + "\n"
+            "/bsky help        - " + plugin.getConfig().getString("command-description.help") + "\n" +
+            "/bsky post <msg>  - " + plugin.getConfig().getString("command-description.post") + "\n" +
+            "/bsky reload      - " + plugin.getConfig().getString("command-description.reload") + "\n"
         );
     }
 }

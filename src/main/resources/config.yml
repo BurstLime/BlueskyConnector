@@ -34,4 +34,5 @@ message:
 
 command-description:
   help: "ヘルプを参照します"
-  reload: "configを再読込します"
+  post: "Blueskyにメッセージを投稿します"
+  reload: "config.ymlを再読込します"
