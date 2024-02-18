@@ -20,7 +20,15 @@ public class BCCommandExecutor implements CommandExecutor {
         if (command.getName().equalsIgnoreCase("bluesky"))
         { // メインコマンド
 
-            if (args[0].equalsIgnoreCase("reload"))
+            if (args[0].equalsIgnoreCase("help"))
+            { // ヘルプ
+
+                // ヘルプメッセージを送信
+                sender.sendMessage(getHelpMessage());
+
+                return true;
+            }
+            else if (args[0].equalsIgnoreCase("reload"))
             { // リロード
 
                 // コンフィグを再読み込み
@@ -45,5 +53,14 @@ public class BCCommandExecutor implements CommandExecutor {
         }
 
         return true;
+    }
+
+
+    private String getHelpMessage()
+    {
+        return ChatColor.translateAlternateColorCodes('&',
+            "/bsky help   - " + plugin.getConfig().getString("command-description.help") + "\n" +
+            "/bsky reload - " + plugin.getConfig().getString("command-description.reload") + "\n"
+        );
     }
 }

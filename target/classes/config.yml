@@ -31,3 +31,7 @@ message:
   post-success: "投稿に成功しました"
   post-failed: "投稿に失敗しました"
   command-notfound: "コマンドが見つかりませんでした (/bsky help でヘルプ)"
+
+command-description:
+  help: "ヘルプを参照します"
+  reload: "configを再読込します"
