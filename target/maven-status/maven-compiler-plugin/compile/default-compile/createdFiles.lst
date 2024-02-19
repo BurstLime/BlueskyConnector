@@ -1,4 +1,5 @@
-dev\burstlime\blueskyconnector\EventListener.class
-dev\burstlime\blueskyconnector\BlueskyConnector.class
+dev\burstlime\blueskyconnector\BCEventListener.class
 dev\burstlime\blueskyconnector\BCCommandExecutor.class
-dev\burstlime\blueskyconnector\FeedRequest.class
+dev\burstlime\blueskyconnector\BlueskyConnector.class
+dev\burstlime\blueskyconnector\BCFeedRequest.class
+dev\burstlime\blueskyconnector\BCTabComplete.class

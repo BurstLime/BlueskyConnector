@@ -7,7 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
 
 import static dev.burstlime.blueskyconnector.BlueskyConnector.BskyConnection;
-import static dev.burstlime.blueskyconnector.FeedRequest.SendFeedPost;
+import static dev.burstlime.blueskyconnector.BCFeedRequest.SendFeedPost;
 
 public class BCCommandExecutor implements CommandExecutor {
     private static final Plugin plugin = BlueskyConnector.getPlugin();

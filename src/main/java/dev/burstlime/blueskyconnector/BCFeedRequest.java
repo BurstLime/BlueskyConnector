@@ -7,7 +7,7 @@ import bsky4j.api.entity.share.Response;
 import bsky4j.domain.Service;
 import org.bukkit.plugin.Plugin;
 
-public class FeedRequest {
+public class BCFeedRequest {
 
     // プラグインを取得
     private static final Plugin plugin = BlueskyConnector.getPlugin();

@@ -1,7 +1,5 @@
 package dev.burstlime.blueskyconnector;
 
-import net.minecraft.server.v1_12_R1.Advancement;
-import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_12_R1.advancement.CraftAdvancement;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -10,9 +8,9 @@ import org.bukkit.plugin.Plugin;
 
 import java.util.UUID;
 
-import static dev.burstlime.blueskyconnector.FeedRequest.SendFeedPost;
+import static dev.burstlime.blueskyconnector.BCFeedRequest.SendFeedPost;
 
-public class EventListener implements Listener {
+public class BCEventListener implements Listener {
 
     private static final Plugin plugin = BlueskyConnector.getPlugin();
     private static UUID kickUUID = null;

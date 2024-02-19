@@ -3,17 +3,13 @@ package dev.burstlime.blueskyconnector;
 import bsky4j.BlueskyFactory;
 import bsky4j.api.entity.atproto.server.ServerCreateSessionRequest;
 import bsky4j.api.entity.atproto.server.ServerCreateSessionResponse;
-import bsky4j.api.entity.bsky.feed.FeedPostRequest;
-import bsky4j.api.entity.bsky.feed.FeedPostResponse;
 import bsky4j.api.entity.share.Response;
 import bsky4j.domain.Service;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import javax.xml.ws.http.HTTPException;
-
-import static dev.burstlime.blueskyconnector.FeedRequest.SendFeedPost;
+import static dev.burstlime.blueskyconnector.BCFeedRequest.SendFeedPost;
 
 public final class BlueskyConnector extends JavaPlugin implements Listener {
 
@@ -44,10 +40,11 @@ public final class BlueskyConnector extends JavaPlugin implements Listener {
 
         // イベントを登録する
         getServer().getPluginManager().registerEvents(this, this);
-        getServer().getPluginManager().registerEvents(new EventListener(), this);
+        getServer().getPluginManager().registerEvents(new BCEventListener(), this);
 
         // コマンドを登録する
         getCommand("bluesky").setExecutor(new BCCommandExecutor());
+        getCommand("bluesky").setTabCompleter(new BCTabComplete());
     }
 
     @Override
