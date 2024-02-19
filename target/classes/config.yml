@@ -28,6 +28,7 @@ message:
   prefix: "&b[BskyConnector] &r"
   connection-success: "Blueskyとの接続に成功しました"
   connection-failed: "Blueskyとの接続に失敗しました\n（ユーザー・パスワードが間違っている可能性があります）"
+  not-connection: "アカウントと接続できないため、失敗しました"
   post-success: "投稿に成功しました"
   post-failed: "投稿に失敗しました"
   command-notfound: "コマンドが見つかりませんでした (/bsky help でヘルプ)"

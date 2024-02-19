@@ -5,7 +5,12 @@ import bsky4j.api.entity.bsky.feed.FeedPostRequest;
 import bsky4j.api.entity.bsky.feed.FeedPostResponse;
 import bsky4j.api.entity.share.Response;
 import bsky4j.domain.Service;
+import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+
+import static dev.burstlime.blueskyconnector.BlueskyConnector.getPrefix;
 
 public class BCFeedRequest {
 
@@ -13,14 +18,17 @@ public class BCFeedRequest {
     private static final Plugin plugin = BlueskyConnector.getPlugin();
 
     // 投稿する
-    public static boolean SendFeedPost(String msg)
+    public static boolean SendFeedPost(CommandSender sender, String msg)
     {
         // Bskyとの接続情報を取得
         boolean userSuccess = BlueskyConnector.getUserSuccess();
         String accessJwt = BlueskyConnector.getAccessJwt();
 
         // 接続されているかを確認する
-        if (!userSuccess) return false;
+        if (!userSuccess){
+            sender.sendMessage(getPrefix()+ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("message.not-connection")));
+            return false;
+        }
 
         // 送信する
         try {
@@ -35,11 +43,11 @@ public class BCFeedRequest {
         }
         catch (Exception exception) {
             // 失敗
-            plugin.getLogger().warning(plugin.getConfig().getString("message.post-failed"));
+            sender.sendMessage(getPrefix() + ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("message.post-failed")));
             return false;
         }
 
-        plugin.getLogger().info(plugin.getConfig().getString("message.post-success"));
+        sender.sendMessage(getPrefix() + ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("message.post-success")));
         return true;
     }
 }

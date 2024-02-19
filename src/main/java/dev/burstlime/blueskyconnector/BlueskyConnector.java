@@ -5,6 +5,8 @@ import bsky4j.api.entity.atproto.server.ServerCreateSessionRequest;
 import bsky4j.api.entity.atproto.server.ServerCreateSessionResponse;
 import bsky4j.api.entity.share.Response;
 import bsky4j.domain.Service;
+import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -30,12 +32,12 @@ public final class BlueskyConnector extends JavaPlugin implements Listener {
         saveDefaultConfig();
 
         // Blueskyに接続する
-        BskyConnection();
+        BskyConnection(plugin.getServer().getConsoleSender());
 
         // 起動情報を投稿する
-        if (plugin.getConfig().getBoolean("event.server-start.enabled"))
+        if (BlueskyConnector.getUserSuccess() && plugin.getConfig().getBoolean("event.server-start.enabled"))
         {
-            SendFeedPost(plugin.getConfig().getString("event.server-start.message"));
+            SendFeedPost(getServer().getConsoleSender(), plugin.getConfig().getString("event.server-start.message"));
         }
 
         // イベントを登録する
@@ -52,14 +54,14 @@ public final class BlueskyConnector extends JavaPlugin implements Listener {
         // Plugin shutdown logic
 
         // 停止情報を投稿する
-        if (plugin.getConfig().getBoolean("event.server-stop.enabled"))
+        if (BlueskyConnector.getUserSuccess() && plugin.getConfig().getBoolean("event.server-stop.enabled"))
         {
-            SendFeedPost(plugin.getConfig().getString("event.server-stop.message"));
+            SendFeedPost(getServer().getConsoleSender(), plugin.getConfig().getString("event.server-stop.message"));
         }
     }
 
     // アカウントを接続する
-    public static boolean BskyConnection()
+    public static boolean BskyConnection(CommandSender sender)
     {
         // 変数を初期化する
         accessJwt = null;
@@ -83,16 +85,20 @@ public final class BlueskyConnector extends JavaPlugin implements Listener {
             accessJwt = response.get().getAccessJwt();
 
             // アクセスに成功したとき
-            plugin.getLogger().info(plugin.getConfig().getString("message.connection-success"));
+            sender.sendMessage(getPrefix()+ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("message.connection-success")));
             userSuccess = true;
         }
         catch (Exception exception)
         {
             // エラーが発生したとき
-            plugin.getLogger().warning(plugin.getConfig().getString("message.connection-failed"));
+            sender.sendMessage(getPrefix()+ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("message.connection-failed")));
             userSuccess = false;
         }
 
         return userSuccess;
+    }
+
+    public static String getPrefix(){
+        return ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("message.prefix"));
     }
 }

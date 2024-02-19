@@ -8,6 +8,7 @@ import org.bukkit.plugin.Plugin;
 
 import static dev.burstlime.blueskyconnector.BlueskyConnector.BskyConnection;
 import static dev.burstlime.blueskyconnector.BCFeedRequest.SendFeedPost;
+import static dev.burstlime.blueskyconnector.BlueskyConnector.getPrefix;
 
 public class BCCommandExecutor implements CommandExecutor {
     private static final Plugin plugin = BlueskyConnector.getPlugin();
@@ -15,9 +16,6 @@ public class BCCommandExecutor implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
     {
-        // プレフィックス取得
-        String prefix = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("message.prefix"));
-
         if (command.getName().equalsIgnoreCase("bluesky"))
         { // メインコマンド
 
@@ -39,17 +37,11 @@ public class BCCommandExecutor implements CommandExecutor {
 
                 if (args.length == 2)
                 {
-                    if (SendFeedPost(args[1])) {
-                        // 成功
-                        sender.sendMessage(prefix + plugin.getConfig().getString("message.post-success"));
-                    } else {
-                        // 失敗
-                        sender.sendMessage(prefix + plugin.getConfig().getString("message.post-failed"));
-                    }
+                    SendFeedPost(sender, args[1]);
                 }
                 else
                 {
-                    sender.sendMessage(prefix + "Usage: /bsky post <message>");
+                    sender.sendMessage(getPrefix() + "Usage: /bsky post <message>");
                 }
 
                 return true;
@@ -64,21 +56,14 @@ public class BCCommandExecutor implements CommandExecutor {
                 plugin.reloadConfig();
 
                 // Blueskyに接続を試みる
-                if (BskyConnection()) {
-                    // 成功
-                    sender.sendMessage(prefix + plugin.getConfig().getString("message.connection-success"));
-                }
-                else {
-                    // 失敗
-                    sender.sendMessage(prefix + plugin.getConfig().getString("message.connection-failed"));
-                }
+                BskyConnection(sender);
 
                 return true;
             }
 
 
             // コマンドが見つからなかったとき
-            sender.sendMessage(prefix + plugin.getConfig().getString("message.command-notfound"));
+            sender.sendMessage(getPrefix() + ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("message.command-notfound")));
         }
 
         return true;
@@ -103,7 +88,7 @@ public class BCCommandExecutor implements CommandExecutor {
 
         // 権限を持っていない
         sender.sendMessage(
-                ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("message.command-nopermission"))
+                getPrefix() + ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("message.command-nopermission"))
         );
         return false;
     }
