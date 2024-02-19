@@ -39,7 +39,7 @@ public class BCFeedRequest {
             return false;
         }
 
-        plugin.getLogger().warning(plugin.getConfig().getString("message.post-success"));
+        plugin.getLogger().info(plugin.getConfig().getString("message.post-success"));
         return true;
     }
 }
