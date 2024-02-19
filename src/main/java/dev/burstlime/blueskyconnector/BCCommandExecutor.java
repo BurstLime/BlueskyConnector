@@ -24,6 +24,9 @@ public class BCCommandExecutor implements CommandExecutor {
             if (args[0].equalsIgnoreCase("help"))
             { // ヘルプ
 
+                // 権限確認
+                if (!CheckPermission(sender, "blueskyconnector.commands.help")) return true;
+
                 // ヘルプメッセージを送信
                 sender.sendMessage(getHelpMessage());
 
@@ -31,6 +34,9 @@ public class BCCommandExecutor implements CommandExecutor {
             }
             else if (args[0].equalsIgnoreCase("post"))
             {
+                // 権限確認
+                if (!CheckPermission(sender, "blueskyconnector.commands.post")) return true;
+
                 if (args.length == 2)
                 {
                     if (SendFeedPost(args[1])) {
@@ -50,6 +56,9 @@ public class BCCommandExecutor implements CommandExecutor {
             }
             else if (args[0].equalsIgnoreCase("reload"))
             { // リロード
+
+                // 権限確認
+                if (!CheckPermission(sender, "blueskyconnector.commands.reload")) return true;
 
                 // コンフィグを再読み込み
                 plugin.reloadConfig();
@@ -83,5 +92,19 @@ public class BCCommandExecutor implements CommandExecutor {
             "/bsky post <msg>  - " + plugin.getConfig().getString("command-description.post") + "\n" +
             "/bsky reload      - " + plugin.getConfig().getString("command-description.reload") + "\n"
         );
+    }
+
+    private boolean CheckPermission(CommandSender sender, String permission)
+    {
+        if (sender.hasPermission(permission)) {
+            // 権限を持っている
+            return true;
+        }
+
+        // 権限を持っていない
+        sender.sendMessage(
+                ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("message.command-nopermission"))
+        );
+        return false;
     }
 }

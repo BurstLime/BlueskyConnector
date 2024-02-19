@@ -4,11 +4,31 @@ main: dev.burstlime.blueskyconnector.BlueskyConnector
 prefix: "BskyConnector"
 author: BurstLime
 description: "Connect from Minecraft to Bluesky"
+
 commands:
   bluesky:
     aliases: [ bsky, blueskyconnector ]
     description: Main Command
+
 permissions:
   blueskyconnector.*:
     description: BlueskyConnector All Permissions
     default: op
+    children:
+      blueskyconnector.commands: true
+  blueskyconnector.commands:
+    description: BlueskyConnector Commands Permissions
+    default: op
+    children:
+      blueskyconnector.commands.help: true
+      blueskyconnector.commands.post: true
+      blueskyconnector.commands.reload: true
+  blueskyconnector.commands.help:
+    description: BlueskyConnector Help Command
+    default: false
+  blueskyconnector.commands.post:
+    description: BlueskyConnector Post Command
+    default: false
+  blueskyconnector.commands.reload:
+    description: BlueskyConnector Reload Command
+    default: false
